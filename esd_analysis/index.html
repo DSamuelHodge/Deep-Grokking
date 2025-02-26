@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESD Metrics Visualization</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        .section {
+            margin-bottom: 30px;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .metric-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .metric-item {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .description {
+            margin-bottom: 20px;
+            background-color: #f0f7ff;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #0066cc;
+        }
+        .comparison {
+            background-color: #fff8e1;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #ffa000;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>ESD Metrics Visualization Dashboard</h1>
+    
+    <div class="description">
+        <p>This dashboard provides visualizations of Empirical Spectral Density (ESD) metrics collected during neural network training. 
+        ESD metrics can provide insights into the learning dynamics and generalization properties of neural networks.</p>
+        
+        <p><strong>Key Metrics:</strong></p>
+        <ul>
+            <li><strong>Alpha:</strong> Power-law exponent of the eigenvalue distribution. Lower values indicate more complex representations.</li>
+            <li><strong>D:</strong> Kolmogorov-Smirnov statistic measuring the goodness of fit of the power-law distribution.</li>
+            <li><strong>Spectral Norm:</strong> The largest eigenvalue of the weight matrix, indicating the maximum amplification the layer can apply.</li>
+        </ul>
+    </div>
+    
+    <div class="comparison">
+        <p><strong>Dataset Size:</strong> 2000</p>
+        <p><strong>Compare with other dataset sizes:</strong></p>
+        <ul>
+            <li><a href="../esd_analysis_5000/index.html">Dataset Size 5000</a></li>
+            <li><a href="../index.html">Back to Main Page</a></li>
+        </ul>
+    </div>
+    
+    <div class="section">
+        <h2>Alpha Values Over Training</h2>
+        <p>These plots show how the alpha values (power-law exponents) change during training for each layer.</p>
+        <div class="metric-group">
+            <div class="metric-item"><a href="esd_alpha_layer_0.html">Layer 0</a></div>
+            <div class="metric-item"><a href="esd_alpha_layer_1.html">Layer 1</a></div>
+            <div class="metric-item"><a href="esd_alpha_layer_2.html">Layer 2</a></div>
+            <div class="metric-item"><a href="esd_alpha_layer_3.html">Layer 3</a></div>
+            <div class="metric-item"><a href="esd_alpha_layer_4.html">Layer 4</a></div>
+            <div class="metric-item"><a href="esd_alpha_layer_5.html">Layer 5</a></div>
+            <div class="metric-item"><a href="esd_alpha_layer_6.html">Layer 6</a></div>
+            <div class="metric-item"><a href="esd_alpha_layer_7.html">Layer 7</a></div>
+            <div class="metric-item"><a href="esd_alpha_layer_8.html">Layer 8</a></div>
+            <div class="metric-item"><a href="esd_alpha_layer_9.html">Layer 9</a></div>
+            <div class="metric-item"><a href="esd_alpha_layer_10.html">Layer 10</a></div>
+            <div class="metric-item"><a href="esd_alpha_layer_11.html">Layer 11</a></div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>D Values Over Training</h2>
+        <p>These plots show how the D values (goodness of fit) change during training for each layer.</p>
+        <div class="metric-group">
+            <div class="metric-item"><a href="esd_D_layer_0.html">Layer 0</a></div>
+            <div class="metric-item"><a href="esd_D_layer_1.html">Layer 1</a></div>
+            <div class="metric-item"><a href="esd_D_layer_2.html">Layer 2</a></div>
+            <div class="metric-item"><a href="esd_D_layer_3.html">Layer 3</a></div>
+            <div class="metric-item"><a href="esd_D_layer_4.html">Layer 4</a></div>
+            <div class="metric-item"><a href="esd_D_layer_5.html">Layer 5</a></div>
+            <div class="metric-item"><a href="esd_D_layer_6.html">Layer 6</a></div>
+            <div class="metric-item"><a href="esd_D_layer_7.html">Layer 7</a></div>
+            <div class="metric-item"><a href="esd_D_layer_8.html">Layer 8</a></div>
+            <div class="metric-item"><a href="esd_D_layer_9.html">Layer 9</a></div>
+            <div class="metric-item"><a href="esd_D_layer_10.html">Layer 10</a></div>
+            <div class="metric-item"><a href="esd_D_layer_11.html">Layer 11</a></div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>Spectral Norm Values Over Training</h2>
+        <p>These plots show how the spectral norm values change during training for each layer.</p>
+        <div class="metric-group">
+            <div class="metric-item"><a href="esd_spectral_norm_layer_0.html">Layer 0</a></div>
+            <div class="metric-item"><a href="esd_spectral_norm_layer_1.html">Layer 1</a></div>
+            <div class="metric-item"><a href="esd_spectral_norm_layer_2.html">Layer 2</a></div>
+            <div class="metric-item"><a href="esd_spectral_norm_layer_3.html">Layer 3</a></div>
+            <div class="metric-item"><a href="esd_spectral_norm_layer_4.html">Layer 4</a></div>
+            <div class="metric-item"><a href="esd_spectral_norm_layer_5.html">Layer 5</a></div>
+            <div class="metric-item"><a href="esd_spectral_norm_layer_6.html">Layer 6</a></div>
+            <div class="metric-item"><a href="esd_spectral_norm_layer_7.html">Layer 7</a></div>
+            <div class="metric-item"><a href="esd_spectral_norm_layer_8.html">Layer 8</a></div>
+            <div class="metric-item"><a href="esd_spectral_norm_layer_9.html">Layer 9</a></div>
+            <div class="metric-item"><a href="esd_spectral_norm_layer_10.html">Layer 10</a></div>
+            <div class="metric-item"><a href="esd_spectral_norm_layer_11.html">Layer 11</a></div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>Alpha vs Test Accuracy</h2>
+        <p>These plots show the relationship between alpha values and test accuracy for each layer.</p>
+        <div class="metric-group">
+            <div class="metric-item"><a href="esd_alpha_vs_test_accuracy_layer_0.html">Layer 0</a></div>
+            <div class="metric-item"><a href="esd_alpha_vs_test_accuracy_layer_1.html">Layer 1</a></div>
+            <div class="metric-item"><a href="esd_alpha_vs_test_accuracy_layer_2.html">Layer 2</a></div>
+            <div class="metric-item"><a href="esd_alpha_vs_test_accuracy_layer_3.html">Layer 3</a></div>
+            <div class="metric-item"><a href="esd_alpha_vs_test_accuracy_layer_4.html">Layer 4</a></div>
+            <div class="metric-item"><a href="esd_alpha_vs_test_accuracy_layer_5.html">Layer 5</a></div>
+            <div class="metric-item"><a href="esd_alpha_vs_test_accuracy_layer_6.html">Layer 6</a></div>
+            <div class="metric-item"><a href="esd_alpha_vs_test_accuracy_layer_7.html">Layer 7</a></div>
+            <div class="metric-item"><a href="esd_alpha_vs_test_accuracy_layer_8.html">Layer 8</a></div>
+            <div class="metric-item"><a href="esd_alpha_vs_test_accuracy_layer_9.html">Layer 9</a></div>
+            <div class="metric-item"><a href="esd_alpha_vs_test_accuracy_layer_10.html">Layer 10</a></div>
+            <div class="metric-item"><a href="esd_alpha_vs_test_accuracy_layer_11.html">Layer 11</a></div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>D vs Test Accuracy</h2>
+        <p>These plots show the relationship between D values and test accuracy for each layer.</p>
+        <div class="metric-group">
+            <div class="metric-item"><a href="esd_D_vs_test_accuracy_layer_0.html">Layer 0</a></div>
+            <div class="metric-item"><a href="esd_D_vs_test_accuracy_layer_1.html">Layer 1</a></div>
+            <div class="metric-item"><a href="esd_D_vs_test_accuracy_layer_2.html">Layer 2</a></div>
+            <div class="metric-item"><a href="esd_D_vs_test_accuracy_layer_3.html">Layer 3</a></div>
+            <div class="metric-item"><a href="esd_D_vs_test_accuracy_layer_4.html">Layer 4</a></div>
+            <div class="metric-item"><a href="esd_D_vs_test_accuracy_layer_5.html">Layer 5</a></div>
+            <div class="metric-item"><a href="esd_D_vs_test_accuracy_layer_6.html">Layer 6</a></div>
+            <div class="metric-item"><a href="esd_D_vs_test_accuracy_layer_7.html">Layer 7</a></div>
+            <div class="metric-item"><a href="esd_D_vs_test_accuracy_layer_8.html">Layer 8</a></div>
+            <div class="metric-item"><a href="esd_D_vs_test_accuracy_layer_9.html">Layer 9</a></div>
+            <div class="metric-item"><a href="esd_D_vs_test_accuracy_layer_10.html">Layer 10</a></div>
+            <div class="metric-item"><a href="esd_D_vs_test_accuracy_layer_11.html">Layer 11</a></div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>Spectral Norm vs Test Accuracy</h2>
+        <p>These plots show the relationship between spectral norm values and test accuracy for each layer.</p>
+        <div class="metric-group">
+            <div class="metric-item"><a href="esd_spectral_norm_vs_test_accuracy_layer_0.html">Layer 0</a></div>
+            <div class="metric-item"><a href="esd_spectral_norm_vs_test_accuracy_layer_1.html">Layer 1</a></div>
+            <div class="metric-item"><a href="esd_spectral_norm_vs_test_accuracy_layer_2.html">Layer 2</a></div>
+            <div class="metric-item"><a href="esd_spectral_norm_vs_test_accuracy_layer_3.html">Layer 3</a></div>
+            <div class="metric-item"><a href="esd_spectral_norm_vs_test_accuracy_layer_4.html">Layer 4</a></div>
+            <div class="metric-item"><a href="esd_spectral_norm_vs_test_accuracy_layer_5.html">Layer 5</a></div>
+            <div class="metric-item"><a href="esd_spectral_norm_vs_test_accuracy_layer_6.html">Layer 6</a></div>
+            <div class="metric-item"><a href="esd_spectral_norm_vs_test_accuracy_layer_7.html">Layer 7</a></div>
+            <div class="metric-item"><a href="esd_spectral_norm_vs_test_accuracy_layer_8.html">Layer 8</a></div>
+            <div class="metric-item"><a href="esd_spectral_norm_vs_test_accuracy_layer_9.html">Layer 9</a></div>
+            <div class="metric-item"><a href="esd_spectral_norm_vs_test_accuracy_layer_10.html">Layer 10</a></div>
+            <div class="metric-item"><a href="esd_spectral_norm_vs_test_accuracy_layer_11.html">Layer 11</a></div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>Eigenvalue Distributions</h2>
+        <p>These plots show the distribution of eigenvalues at the final training step for each layer.</p>
+        <div class="metric-group">
+            <div class="metric-item"><a href="esd_eigenvalue_distribution_step_10000_layer_0.html">Layer 0</a></div>
+            <div class="metric-item"><a href="esd_eigenvalue_distribution_step_10000_layer_1.html">Layer 1</a></div>
+            <div class="metric-item"><a href="esd_eigenvalue_distribution_step_10000_layer_2.html">Layer 2</a></div>
+            <div class="metric-item"><a href="esd_eigenvalue_distribution_step_10000_layer_3.html">Layer 3</a></div>
+            <div class="metric-item"><a href="esd_eigenvalue_distribution_step_10000_layer_4.html">Layer 4</a></div>
+            <div class="metric-item"><a href="esd_eigenvalue_distribution_step_10000_layer_5.html">Layer 5</a></div>
+            <div class="metric-item"><a href="esd_eigenvalue_distribution_step_10000_layer_6.html">Layer 6</a></div>
+            <div class="metric-item"><a href="esd_eigenvalue_distribution_step_10000_layer_7.html">Layer 7</a></div>
+            <div class="metric-item"><a href="esd_eigenvalue_distribution_step_10000_layer_8.html">Layer 8</a></div>
+            <div class="metric-item"><a href="esd_eigenvalue_distribution_step_10000_layer_9.html">Layer 9</a></div>
+            <div class="metric-item"><a href="esd_eigenvalue_distribution_step_10000_layer_10.html">Layer 10</a></div>
+            <div class="metric-item"><a href="esd_eigenvalue_distribution_step_10000_layer_11.html">Layer 11</a></div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Generated on February 25, 2025</p>
+    </footer>
+</body>
+</html>

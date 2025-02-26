@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTSR Analysis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        .section {
+            margin-bottom: 30px;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .metric-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .metric-item {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .description {
+            margin-bottom: 20px;
+            background-color: #f0f7ff;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #0066cc;
+        }
+        .theory {
+            background-color: #fff8e1;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #ffa000;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Heavy-Tailed Self Regularization (HTSR) Analysis</h1>
+    
+    <div class="description">
+        <p>This dashboard provides analysis of the neural network training results through the lens of Heavy-Tailed Self Regularization (HTSR) theory.</p>
+    </div>
+    
+    <div class="theory">
+        <h2>HTSR Theory</h2>
+        <p>According to Heavy-Tailed Self Regularization theory by Charles Martin, PhD, the power-law exponent (alpha) of the eigenvalue distribution of weight matrices provides insights into the generalization capabilities of neural networks:</p>
+        <ul>
+            <li><strong>Alpha ≈ 2:</strong> Optimal value for quality layers with good generalization</li>
+            <li><strong>Alpha between 2-4:</strong> Good fit to the data</li>
+            <li><strong>Alpha > 6:</strong> Indication of overfitting</li>
+        </ul>
+        <p>This analysis examines how alpha values relate to generalization performance across different dataset sizes and training steps.</p>
+    </div>
+    
+    <div class="section">
+        <h2>HTSR Summary</h2>
+        <p>This visualization shows the final alpha values across all layers for each dataset size, color-coded according to HTSR theory thresholds.</p>
+        <div class="metric-item"><a href="htsr_summary.html">View HTSR Summary</a></div>
+    </div>
+    
+    <div class="section">
+        <h2>Alpha Value Distributions</h2>
+        <p>These visualizations show the distribution of alpha values across all layers and training steps for each dataset size.</p>
+        <div class="metric-group">
+            <div class="metric-item"><a href="alpha_distribution_size_2000.html">Dataset Size 2000</a></div>
+            <div class="metric-item"><a href="alpha_distribution_size_5000.html">Dataset Size 5000</a></div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>Alpha vs Generalization Gap</h2>
+        <p>These visualizations show the relationship between alpha values and the generalization gap (train accuracy - test accuracy) for each layer and dataset size.</p>
+        <h3>Dataset Size 2000</h3>
+        <div class="metric-group">
+            <div class="metric-item"><a href="alpha_vs_gen_gap_size_2000_layer_0.html">Layer 0</a></div>
+            <div class="metric-item"><a href="alpha_vs_gen_gap_size_2000_layer_1.html">Layer 1</a></div>
+            <div class="metric-item"><a href="alpha_vs_gen_gap_size_2000_layer_2.html">Layer 2</a></div>
+            <div class="metric-item"><a href="alpha_vs_gen_gap_size_2000_layer_3.html">Layer 3</a></div>
+            <div class="metric-item"><a href="alpha_vs_gen_gap_size_2000_layer_4.html">Layer 4</a></div>
+            <div class="metric-item"><a href="alpha_vs_gen_gap_size_2000_layer_5.html">Layer 5</a></div>
+            <div class="metric-item"><a href="alpha_vs_gen_gap_size_2000_layer_6.html">Layer 6</a></div>
+            <div class="metric-item"><a href="alpha_vs_gen_gap_size_2000_layer_7.html">Layer 7</a></div>
+            <div class="metric-item"><a href="alpha_vs_gen_gap_size_2000_layer_8.html">Layer 8</a></div>
+            <div class="metric-item"><a href="alpha_vs_gen_gap_size_2000_layer_9.html">Layer 9</a></div>
+            <div class="metric-item"><a href="alpha_vs_gen_gap_size_2000_layer_10.html">Layer 10</a></div>
+            <div class="metric-item"><a href="alpha_vs_gen_gap_size_2000_layer_11.html">Layer 11</a></div>
+        </div>
+        <h3>Dataset Size 5000</h3>
+        <div class="metric-group">
+            <div class="metric-item"><a href="alpha_vs_gen_gap_size_5000_layer_0.html">Layer 0</a></div>
+            <div class="metric-item"><a href="alpha_vs_gen_gap_size_5000_layer_1.html">Layer 1</a></div>
+            <div class="metric-item"><a href="alpha_vs_gen_gap_size_5000_layer_2.html">Layer 2</a></div>
+            <div class="metric-item"><a href="alpha_vs_gen_gap_size_5000_layer_3.html">Layer 3</a></div>
+            <div class="metric-item"><a href="alpha_vs_gen_gap_size_5000_layer_4.html">Layer 4</a></div>
+            <div class="metric-item"><a href="alpha_vs_gen_gap_size_5000_layer_5.html">Layer 5</a></div>
+            <div class="metric-item"><a href="alpha_vs_gen_gap_size_5000_layer_6.html">Layer 6</a></div>
+            <div class="metric-item"><a href="alpha_vs_gen_gap_size_5000_layer_7.html">Layer 7</a></div>
+            <div class="metric-item"><a href="alpha_vs_gen_gap_size_5000_layer_8.html">Layer 8</a></div>
+            <div class="metric-item"><a href="alpha_vs_gen_gap_size_5000_layer_9.html">Layer 9</a></div>
+            <div class="metric-item"><a href="alpha_vs_gen_gap_size_5000_layer_10.html">Layer 10</a></div>
+            <div class="metric-item"><a href="alpha_vs_gen_gap_size_5000_layer_11.html">Layer 11</a></div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>Navigation</h2>
+        <p><a href="../index.html">Back to Main Dashboard</a></p>
+        <p><a href="../esd_comparison/index.html">View ESD Comparison Dashboard</a></p>
+    </div>
+    
+    <footer>
+        <p>Generated on February 25, 2025</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Grokking ESD Analysis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card h2 {
+            margin-top: 0;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+        .metrics-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .metric-item {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .description {
+            background-color: #f0f7ff;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #0066cc;
+            margin-bottom: 20px;
+        }
+        .button {
+            display: inline-block;
+            background-color: #0066cc;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #0055aa;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Deep Grokking ESD Analysis</h1>
+    
+    <div class="description">
+        <p>This project explores the relationship between Empirical Spectral Density (ESD) metrics and neural network learning dynamics.</p>
+        <p>ESD metrics provide insights into the eigenvalue distributions of weight matrices in neural networks, which can help understand how networks learn and generalize.</p>
+    </div>
+    
+    <div class="container">
+        <div class="card">
+            <h2>Available Analyses</h2>
+            <p>Select a dataset size to view the corresponding ESD metrics analysis:</p>
+            
+            <div class="metrics-list">
+                <div class="metric-item">
+                    <h3>Dataset Size: 2000</h3>
+                    <p>Analysis of ESD metrics for a model trained on 2000 examples.</p>
+                    <a href="esd_analysis/index.html" class="button">View Analysis</a>
+                </div>
+                
+                <div class="metric-item">
+                    <h3>Dataset Size: 5000</h3>
+                    <p>Analysis of ESD metrics for a model trained on 5000 examples.</p>
+                    <a href="esd_analysis_5000/index.html" class="button">View Analysis</a>
+                </div>
+                
+                <div class="metric-item">
+                    <h3>Compare Datasets</h3>
+                    <p>Direct comparison of ESD metrics across different dataset sizes.</p>
+                    <a href="esd_comparison/index.html" class="button">View Comparison</a>
+                </div>
+                
+                <div class="metric-item">
+                    <h3>HTSR Analysis</h3>
+                    <p>Analysis through the lens of Heavy-Tailed Self Regularization theory.</p>
+                    <a href="htsr_analysis/index.html" class="button">View Analysis</a>
+                </div>
+                
+                <div class="metric-item">
+                    <h3>Paper Visualization</h3>
+                    <p>Original visualizations from the Deep Grokking research paper.</p>
+                    <a href="paper_visualization.html" class="button">View Paper Results</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>Run New Analysis</h2>
+            <p>To run a new analysis with different parameters, use the following command:</p>
+            <pre>python analyze_esd.py --dataset_size SIZE --metrics_dir metrics --output_dir OUTPUT_DIR</pre>
+            
+            <p>To train a model with a different dataset size:</p>
+            <pre>python -c "from grokking import train_and_visualize; train_and_visualize(train_dataset_sizes=[SIZE], max_steps=10000, step_size=1000)"</pre>
+        </div>
+        
+        <div class="card">
+            <h2>Key Metrics Explained</h2>
+            <ul>
+                <li><strong>Alpha:</strong> Power-law exponent of the eigenvalue distribution. Lower values indicate more complex representations.</li>
+                <li><strong>D:</strong> Kolmogorov-Smirnov statistic measuring the goodness of fit of the power-law distribution.</li>
+                <li><strong>Spectral Norm:</strong> The largest eigenvalue of the weight matrix, indicating the maximum amplification the layer can apply.</li>
+            </ul>
+        </div>
+    </div>
+    
+    <footer style="margin-top: 30px; text-align: center; color: #666;">
+        <p>Generated on February 25, 2025</p>
+    </footer>
+</body>
+</html>

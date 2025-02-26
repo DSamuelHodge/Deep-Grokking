@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Grokking Paper Visualization</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        .section {
+            margin-bottom: 30px;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .paper-image {
+            width: 100%;
+            max-width: 1000px;
+            margin: 20px auto;
+            display: block;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .description {
+            margin-bottom: 20px;
+            background-color: #f0f7ff;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #0066cc;
+        }
+        .phase {
+            background-color: #fff8e1;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .navigation {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>Deep Grokking Paper Visualization</h1>
+    
+    <div class="description">
+        <p>This page showcases the key visualizations from the research paper <a href="https://arxiv.org/html/2405.19454v1" target="_blank">Deep Grokking: Would Deep Neural Networks Generalize Better</a>, which explores the learning dynamics of neural networks across different dataset sizes.</p>
+    </div>
+    
+    <div class="section">
+        <h2>Original Paper Visualization</h2>
+        <img src="x1.png" alt="Deep Grokking Paper Visualization" class="paper-image">
+        
+        <h3>Visualization Explanation</h3>
+        <p>The visualization above shows the learning dynamics for three different dataset sizes (2000, 5000, and 7000 examples) over 100,000 training steps:</p>
+        
+        <div class="phase">
+            <h4>Top Row: Loss Curves</h4>
+            <p>Shows the loss values for different layers during training. Notice how the loss drops dramatically at different points for each dataset size, indicating the transition from overfitting to generalization.</p>
+        </div>
+        
+        <div class="phase">
+            <h4>Middle Row: Accuracy Curves</h4>
+            <p>Blue lines represent training accuracy, while orange lines represent test accuracy. The "grokking" phenomenon is visible as the sudden increase in test accuracy after extended training.</p>
+        </div>
+        
+        <div class="phase">
+            <h4>Bottom Row: Alpha Values</h4>
+            <p>Shows the power-law exponent (alpha) values for each layer during training. According to Heavy-Tailed Self Regularization (HTSR) theory:</p>
+            <ul>
+                <li>Alpha ≈ 2: Optimal for generalization</li>
+                <li>Alpha between 2-4: Good fit</li>
+                <li>Alpha > 6: Potential overfitting</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>Key Observations</h2>
+        
+        <div class="phase">
+            <h4>Dataset Size 2000 (Left Column)</h4>
+            <p>Shows clear overfitting followed by generalization phases, with a dramatic drop in loss and increase in test accuracy around step 40K. The alpha values for deeper layers (L6-L11) drop significantly during the generalization phase.</p>
+        </div>
+        
+        <div class="phase">
+            <h4>Dataset Size 5000 (Middle Column)</h4>
+            <p>Similar pattern but with the generalization phase starting earlier, around step 35K. The transition is smoother compared to the 2000 dataset size.</p>
+        </div>
+        
+        <div class="phase">
+            <h4>Dataset Size 7000 (Right Column)</h4>
+            <p>Shows three distinct phases:</p>
+            <ol>
+                <li><strong>Overfitting</strong>: Initial phase with high training accuracy but low test accuracy</li>
+                <li><strong>Memorization</strong>: Middle phase where the model begins to learn patterns</li>
+                <li><strong>Compression</strong>: Final phase where the model generalizes better</li>
+            </ol>
+            <p>The alpha values show more complex patterns, with some layers (L1-L5) maintaining higher values while deeper layers (L6-L11) show more dramatic changes.</p>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>Reproduction Parameters</h2>
+        <p>To reproduce these results, the following parameters were used:</p>
+        <ul>
+            <li>Dataset sizes: 2000, 5000, and 7000 examples</li>
+            <li>Training steps: 100,000</li>
+            <li>Model: Multi-layer neural network</li>
+            <li>Metrics tracked: Loss, accuracy, and ESD metrics (alpha, D, spectral norm)</li>
+        </ul>
+        <p>The code for reproducing these results can be found in the <code>grokking.py</code> file, with the following command:</p>
+        <pre>python3 -c "from grokking import train_and_visualize; train_and_visualize(train_dataset_sizes=[2000, 5000, 7000], max_steps=100000, step_size=5000)"</pre>
+        <p><strong>Note:</strong> Running this command requires significant computational resources and may take several hours to complete.</p>
+    </div>
+    
+    <div class="navigation">
+        <p><a href="index.html">Back to Main Dashboard</a></p>
+        <p><a href="htsr_analysis/index.html">View HTSR Analysis</a></p>
+    </div>
+</body>
+</html>
