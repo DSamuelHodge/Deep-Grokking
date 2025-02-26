@@ -40,6 +40,9 @@ The project consists of several components:
 - `esd.py`: Implements the ESD metrics computation.
 - `analyze_esd.py`: Generates visualizations of ESD metrics for a specific dataset size.
 - `compare_esd_metrics.py`: Compares ESD metrics across different dataset sizes.
+- `paper_visualization.html`: Displays the key visualizations from the Deep Grokking paper with explanations.
+- `reproduce_paper.py`: Script for reproducing the results from the Deep Grokking paper with configurable parameters.
+- `analyze_htsr.py`: Analyzes the Heavy-Tailed Self-Regularization metrics and generates visualizations.
 
 ## Running the Analysis
 
@@ -63,6 +66,16 @@ python analyze_esd.py --dataset_size SIZE --metrics_dir metrics --output_dir esd
 
 Replace `SIZE` with the dataset size you want to analyze.
 
+### Analyzing HTSR Metrics
+
+To analyze Heavy-Tailed Self-Regularization metrics:
+
+```bash
+python3 analyze_htsr.py --dataset_sizes 2000 5000 --metrics_dir metrics --output_dir htsr_analysis
+```
+
+This will generate visualizations that help understand the relationship between alpha values (power-law exponents) and generalization gap, providing insights into how HTSR theory explains the grokking phenomenon.
+
 ### Comparing ESD Metrics Across Dataset Sizes
 
 To compare ESD metrics across different dataset sizes:
@@ -73,14 +86,32 @@ python compare_esd_metrics.py --dataset_sizes SIZE1 SIZE2 --metrics_dir metrics 
 
 Replace `SIZE1` and `SIZE2` with the dataset sizes you want to compare.
 
+### Reproducing Paper Results
+
+To reproduce the results from the Deep Grokking paper:
+
+```bash
+python3 reproduce_paper.py --dataset_sizes 2000 5000 7000 --max_steps 100000 --step_size 5000
+```
+
+You can customize the parameters:
+- `--dataset_sizes`: List of dataset sizes to train on (default: 2000 5000 7000)
+- `--max_steps`: Maximum number of training steps (default: 100000)
+- `--step_size`: Interval for saving metrics (default: 5000)
+- `--save_metrics`: Whether to save metrics (default: True)
+
+Note: Training for 100,000 steps can be computationally intensive. You can reduce the max_steps parameter for quicker results.
+
 ## Visualization Dashboard
 
 After running the analysis, you can view the visualizations by opening the following files in a web browser:
 
 - `index.html`: Main dashboard with links to individual analyses and comparisons.
+- `paper_visualization.html`: Visualizations from the original Deep Grokking paper with explanations.
 - `esd_analysis/index.html`: Visualizations for the 2000 dataset size.
 - `esd_analysis_5000/index.html`: Visualizations for the 5000 dataset size.
 - `esd_comparison/index.html`: Comparisons of ESD metrics across different dataset sizes.
+- `htsr_analysis/index.html`: Analysis of Heavy-Tailed Self-Regularization metrics.
 
 ## ESD Metrics Explained
 
