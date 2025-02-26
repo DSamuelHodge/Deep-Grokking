@@ -11,7 +11,7 @@ to use fewer steps or dataset sizes if needed.
 
 from grokking import train_and_visualize
 
-def reproduce_paper_results(max_steps=100000, step_size=5000):
+def reproduce_paper_results(max_steps=100000, step_size=5000, init_scale=8.0, weight_decay=0.01):
     """
     Reproduce the results from the Deep Grokking paper.
     
@@ -21,9 +21,14 @@ def reproduce_paper_results(max_steps=100000, step_size=5000):
         Maximum number of training steps (default: 100000)
     step_size : int
         Interval at which to save metrics (default: 5000)
+    init_scale : float
+        Initialization scaling factor (default: 8.0 as per paper)
+    weight_decay : float
+        Weight decay parameter (default: 0.01 as per paper)
     """
     print("Reproducing results from the Deep Grokking paper...")
     print(f"Training with dataset sizes [2000, 5000, 7000] for {max_steps} steps")
+    print(f"Using initialization scale: {init_scale}, weight decay: {weight_decay}")
     print("This may take several hours to complete.")
     print("Press Ctrl+C to cancel at any time.")
     
@@ -32,7 +37,9 @@ def reproduce_paper_results(max_steps=100000, step_size=5000):
         train_dataset_sizes=[2000, 5000, 7000],
         max_steps=max_steps,
         step_size=step_size,
-        save_metrics=True
+        save_metrics=True,
+        init_scale=init_scale,
+        weight_decay=weight_decay
     )
     
     print("Training complete. Results saved to the metrics directory.")
@@ -51,7 +58,16 @@ if __name__ == "__main__":
                         help='Maximum number of training steps (default: 100000)')
     parser.add_argument('--step_size', type=int, default=5000,
                         help='Interval at which to save metrics (default: 5000)')
+    parser.add_argument('--init_scale', type=float, default=8.0,
+                        help='Initialization scaling factor (default: 8.0 as per paper)')
+    parser.add_argument('--weight_decay', type=float, default=0.01,
+                        help='Weight decay parameter (default: 0.01 as per paper)')
     
     args = parser.parse_args()
     
-    reproduce_paper_results(args.max_steps, args.step_size)
+    reproduce_paper_results(
+        args.max_steps, 
+        args.step_size,
+        args.init_scale,
+        args.weight_decay
+    )

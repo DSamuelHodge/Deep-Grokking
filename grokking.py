@@ -15,7 +15,7 @@ from esd import net_esd_estimator
 
 # Deep MLP model with hook functionality to capture layer outputs
 class DeepMLP(nn.Module):
-    def __init__(self, input_size, hidden_size, num_layers, output_size):
+    def __init__(self, input_size, hidden_size, num_layers, output_size, init_scale=8.0):
         super(DeepMLP, self).__init__()
         self.layers = nn.ModuleList()
         
@@ -39,6 +39,19 @@ class DeepMLP(nn.Module):
         # Register hooks for each layer
         for i, layer in enumerate(self.layers):
             self.hooks.append(layer.register_forward_hook(self._get_activation_hook(i)))
+        
+        # Apply initialization scaling
+        self._apply_init_scaling(init_scale)
+    
+    def _apply_init_scaling(self, scale_factor):
+        for layer in self.layers:
+            if hasattr(layer, 'weight'):
+                # Store original norm
+                original_norm = layer.weight.data.norm()
+                # Scale the weights
+                layer.weight.data *= scale_factor
+                # Print scaling info for verification
+                print(f"Layer scaled: original norm={original_norm:.4f}, new norm={layer.weight.data.norm():.4f}")
     
     def _get_activation_hook(self, layer_idx):
         def hook(module, input, output):
@@ -317,71 +330,73 @@ def create_plots(metrics, dataset_size):
         valid_steps = [step for step in steps if step in metrics['esd_metrics'] and metrics['esd_metrics'][step] is not None]
         if valid_steps:
             first_valid_step = valid_steps[0]
-            if 'longname' in metrics['esd_metrics'][first_valid_step]:
-                layer_names = metrics['esd_metrics'][first_valid_step]['longname']
-                
-                for i, layer_name in enumerate(layer_names):
-                    alpha_values = []
-                    for step in steps:
-                        if step in metrics['esd_metrics'] and metrics['esd_metrics'][step] is not None:
-                            if 'alpha' in metrics['esd_metrics'][step] and i < len(metrics['esd_metrics'][step]['alpha']):
-                                alpha_values.append(metrics['esd_metrics'][step]['alpha'][i])
-                            else:
-                                alpha_values.append(None)
+            
+            # Get layer names
+            layer_names = metrics['esd_metrics'][first_valid_step]['longname']
+            
+            for i, layer_name in enumerate(layer_names):
+                alpha_values = []
+                for step in steps:
+                    if step in metrics['esd_metrics'] and metrics['esd_metrics'][step] is not None:
+                        if 'alpha' in metrics['esd_metrics'][step] and i < len(metrics['esd_metrics'][step]['alpha']):
+                            alpha_values.append(metrics['esd_metrics'][step]['alpha'][i])
                         else:
                             alpha_values.append(None)
-                    
-                    # Filter out None values for plotting
-                    valid_steps_for_layer = [s for s, a in zip(steps, alpha_values) if a is not None]
-                    valid_alphas = [a for a in alpha_values if a is not None]
-                    
-                    if valid_alphas:
-                        fig.add_trace(
-                            go.Scatter(
-                                x=valid_steps_for_layer, 
-                                y=valid_alphas,
-                                mode='lines+markers',
-                                name=f"{layer_name} alpha",
-                                line=dict(color=colors[i % len(colors)]),
-                            ),
-                            row=4, col=1
-                        )
+                    else:
+                        alpha_values.append(None)
+                
+                # Filter out None values for plotting
+                valid_steps_for_layer = [s for s, a in zip(steps, alpha_values) if a is not None]
+                valid_alphas = [a for a in alpha_values if a is not None]
+                
+                if valid_alphas:
+                    fig.add_trace(
+                        go.Scatter(
+                            x=valid_steps_for_layer, 
+                            y=valid_alphas,
+                            mode='lines+markers',
+                            name=f"{layer_name} alpha",
+                            line=dict(color=colors[i % len(colors)]),
+                        ),
+                        row=4, col=1
+                    )
     
     # 5. ESD D Values Plot
     if 'esd_metrics' in metrics and any(metrics['esd_metrics'].values()):
         valid_steps = [step for step in steps if step in metrics['esd_metrics'] and metrics['esd_metrics'][step] is not None]
         if valid_steps:
             first_valid_step = valid_steps[0]
-            if 'longname' in metrics['esd_metrics'][first_valid_step]:
-                layer_names = metrics['esd_metrics'][first_valid_step]['longname']
-                
-                for i, layer_name in enumerate(layer_names):
-                    d_values = []
-                    for step in steps:
-                        if step in metrics['esd_metrics'] and metrics['esd_metrics'][step] is not None:
-                            if 'D' in metrics['esd_metrics'][step] and i < len(metrics['esd_metrics'][step]['D']):
-                                d_values.append(metrics['esd_metrics'][step]['D'][i])
-                            else:
-                                d_values.append(None)
+            
+            # Get layer names
+            layer_names = metrics['esd_metrics'][first_valid_step]['longname']
+            
+            for i, layer_name in enumerate(layer_names):
+                d_values = []
+                for step in steps:
+                    if step in metrics['esd_metrics'] and metrics['esd_metrics'][step] is not None:
+                        if 'D' in metrics['esd_metrics'][step] and i < len(metrics['esd_metrics'][step]['D']):
+                            d_values.append(metrics['esd_metrics'][step]['D'][i])
                         else:
                             d_values.append(None)
-                    
-                    # Filter out None values for plotting
-                    valid_steps_for_layer = [s for s, a in zip(steps, d_values) if a is not None]
-                    valid_d_values = [d for d in d_values if d is not None]
-                    
-                    if valid_d_values:
-                        fig.add_trace(
-                            go.Scatter(
-                                x=valid_steps_for_layer, 
-                                y=valid_d_values,
-                                mode='lines+markers',
-                                name=f"{layer_name} D",
-                                line=dict(color=colors[i % len(colors)]),
-                                showlegend=False,  # Use same legend as first plot
-                            ),
-                            row=5, col=1
-                        )
+                    else:
+                        d_values.append(None)
+                
+                # Filter out None values for plotting
+                valid_steps_for_layer = [s for s, a in zip(steps, d_values) if a is not None]
+                valid_d_values = [d for d in d_values if d is not None]
+                
+                if valid_d_values:
+                    fig.add_trace(
+                        go.Scatter(
+                            x=valid_steps_for_layer, 
+                            y=valid_d_values,
+                            mode='lines+markers',
+                            name=f"{layer_name} D",
+                            line=dict(color=colors[i % len(colors)]),
+                            showlegend=False,  # Use same legend as first plot
+                        ),
+                        row=5, col=1
+                    )
     
     # Update layout
     fig.update_layout(
@@ -417,7 +432,22 @@ def create_plots(metrics, dataset_size):
     return fig
 
 # Main training and visualization function
-def train_and_visualize(train_dataset_sizes=[2000, 5000, 7000], max_steps=100000, step_size=5000, save_metrics=True):
+def train_and_visualize(train_dataset_sizes=[2000, 5000, 7000], max_steps=100000, step_size=5000, save_metrics=True, 
+                        init_scale=8.0, weight_decay=0.01):
+    """
+    Train models with different dataset sizes and visualize the results
+    
+    Args:
+        train_dataset_sizes (list): List of dataset sizes to train on
+        max_steps (int): Maximum number of training steps
+        step_size (int): Interval for saving metrics
+        save_metrics (bool): Whether to save metrics
+        init_scale (float): Initialization scaling factor (default: 8.0 as per paper)
+        weight_decay (float): Weight decay parameter (default: 0.01 as per paper)
+    
+    Returns:
+        list: List of plotly figures
+    """
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     
     # Parameters
@@ -441,9 +471,11 @@ def train_and_visualize(train_dataset_sizes=[2000, 5000, 7000], max_steps=100000
         test_loader = DataLoader(test_dataset, batch_size=64, shuffle=False)
         
         # Initialize model, loss function, and optimizer
-        model = DeepMLP(input_size, hidden_size, num_layers, output_size).to(device)
-        criterion = nn.CrossEntropyLoss()
-        optimizer = optim.Adam(model.parameters(), lr=1e-3)
+        model = DeepMLP(input_size, hidden_size, num_layers, output_size, init_scale=init_scale).to(device)
+        # Change to MSE loss as per paper
+        criterion = nn.MSELoss()
+        # Add weight decay as per paper
+        optimizer = optim.Adam(model.parameters(), lr=1e-3, weight_decay=weight_decay)
         
         # Metrics tracking
         metrics = {
@@ -468,7 +500,7 @@ def train_and_visualize(train_dataset_sizes=[2000, 5000, 7000], max_steps=100000
                 
                 optimizer.zero_grad()
                 output = model(data)
-                loss = criterion(output, target)
+                loss = criterion(output, torch.zeros_like(output))  # Change to MSE loss
                 loss.backward()
                 optimizer.step()
                 
@@ -795,5 +827,30 @@ def create_esd_visualization(metrics_dir='metrics', dataset_size=None):
 
 # Run the training and visualization
 if __name__ == "__main__":
-    figures = train_and_visualize(train_dataset_sizes=[2000, 5000, 7000], max_steps=100000, step_size=5000, save_metrics=True)
+    import argparse
+    
+    parser = argparse.ArgumentParser(description="Train and visualize neural network dynamics with ESD metrics")
+    parser.add_argument("--dataset_sizes", nargs="+", type=int, default=[2000, 5000, 7000], 
+                        help="Dataset sizes to train on")
+    parser.add_argument("--max_steps", type=int, default=100000, 
+                        help="Maximum number of training steps")
+    parser.add_argument("--step_size", type=int, default=5000, 
+                        help="Interval for saving metrics")
+    parser.add_argument("--save_metrics", type=bool, default=True, 
+                        help="Whether to save metrics")
+    parser.add_argument("--init_scale", type=float, default=8.0, 
+                        help="Initialization scaling factor (default: 8.0 as per paper)")
+    parser.add_argument("--weight_decay", type=float, default=0.01, 
+                        help="Weight decay parameter (default: 0.01 as per paper)")
+    
+    args = parser.parse_args()
+    
+    figures = train_and_visualize(
+        train_dataset_sizes=args.dataset_sizes,
+        max_steps=args.max_steps,
+        step_size=args.step_size,
+        save_metrics=args.save_metrics,
+        init_scale=args.init_scale,
+        weight_decay=args.weight_decay
+    )
     print("Training and visualization complete. HTML files saved.")

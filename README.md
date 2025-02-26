@@ -25,6 +25,19 @@ The paper demonstrates that larger dataset sizes lead to earlier generalization 
 
 To reproduce these results, we use the same model architecture and training parameters as in the paper, with training for up to 100,000 steps.
 
+### Default Configuration Parameters
+
+Following the paper specifications, our implementation uses these default parameters:
+
+- **Network Architecture**: MLP with width 400 and ReLU activation
+- **Initialization Scale**: α = 8.0 (scaling factor for standard PyTorch initialization)
+- **Weight Decay**: γ = 0.01
+- **Loss Function**: Mean Square Error (MSE)
+- **Optimizer**: Adam with learning rate 1e-3
+- **Training Steps**: 100,000
+
+These parameters are critical for reproducing the grokking phenomenon as described in the paper.
+
 ## Overview
 
 The project consists of several components:
@@ -55,6 +68,20 @@ python -c "from grokking import train_and_visualize; train_and_visualize(train_d
 ```
 
 Replace `SIZE` with the desired dataset size (e.g., 2000, 5000).
+
+You can also customize the training parameters:
+
+```bash
+python -c "from grokking import train_and_visualize; train_and_visualize(train_dataset_sizes=[SIZE], max_steps=10000, step_size=1000, init_scale=8.0, weight_decay=0.01)"
+```
+
+Available parameters:
+- `train_dataset_sizes`: List of dataset sizes to train on
+- `max_steps`: Maximum number of training steps
+- `step_size`: Interval for saving metrics
+- `save_metrics`: Whether to save metrics (default: True)
+- `init_scale`: Initialization scaling factor (default: 8.0)
+- `weight_decay`: Weight decay parameter (default: 0.01)
 
 ### Analyzing ESD Metrics
 
@@ -99,6 +126,8 @@ You can customize the parameters:
 - `--max_steps`: Maximum number of training steps (default: 100000)
 - `--step_size`: Interval for saving metrics (default: 5000)
 - `--save_metrics`: Whether to save metrics (default: True)
+- `--init_scale`: Initialization scaling factor (default: 8.0)
+- `--weight_decay`: Weight decay parameter (default: 0.01)
 
 Note: Training for 100,000 steps can be computationally intensive. You can reduce the max_steps parameter for quicker results.
 
